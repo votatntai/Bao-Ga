@@ -47,7 +47,8 @@ export class HomeComponent implements OnInit {
     // Convert file to FormData
     this.convertFile(event.target.files[0]).subscribe(base64 => {
       this._fileToUpload = new FormData();
-      var file = new File([base64.bold()], event.target.files[0].name)
+      var file = new File([event.target.files[0]], event.target.files[0].name);
+      console.log(file);
       this._fileToUpload.append('image', file);
     });
     // Image preview
@@ -75,6 +76,7 @@ export class HomeComponent implements OnInit {
     const reader = new FileReader();
     reader.readAsBinaryString(file);
     reader.onload = (event) => result.next(btoa(event.target.result.toString()));
+    console.log(result);
     return result;
   }
 
