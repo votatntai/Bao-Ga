@@ -60,7 +60,7 @@ export class HomeComponent implements OnInit {
 
   postData() {
     if (this.formData.valid) {
-      this._homeService.postData(this.imageSrc).subscribe((result) => {
+      this._homeService.postData(this._fileToUpload).subscribe((result) => {
         console.log(result);
       })
     }

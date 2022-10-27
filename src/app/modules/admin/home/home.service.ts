@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, catchError, Observable, of, tap } from 'rxjs';
 import { HomeModel } from './home.model';
 import { environment } from 'environments/environment';
@@ -37,9 +37,12 @@ export class HomeService {
      * Get data
      */
 
-    postData(data) {
+    postData(data: FormData) {
         console.log(data);
-        return this._httpClient.post<HomeModel>(this.baseUrl + '/upload', data).pipe(
+        const httpOptions = {
+            headers: new HttpHeaders({ 'enctype': 'multipart/form-data' })
+        }
+        return this._httpClient.post<HomeModel>(this.baseUrl + '/api/chickens', data, httpOptions).pipe(
             catchError((error) => {
                 return of(error);
             }),
